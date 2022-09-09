@@ -134,3 +134,5 @@ hs_err_pid*
 
 ### my adds
 # remove bang (!) from .idea/codeStyle
+project/target
+target

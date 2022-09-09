@@ -1,0 +1,50 @@
+{
+  "id0": {
+    "id" : "kjnnjjk",
+    "name" : "jnkjjn",
+    "expirationDate":"20-8-2020",
+    "brand": "kjnk",
+    "brandProducer" : "jjnkn",
+    "aislePosition" : 1,
+    "rackAisle" : 2,
+    "shelfrack" : 3,
+    "category" : "kjjkn",
+    "nutritionTable" : ""
+  },
+  "id1" : {
+        "id" : "kjnnjjk",
+    "name" : "jnkjjn",
+    "expirationDate":"20-8-2020",
+    "brand": "kjnk",
+    "brandProducer" : "jjnkn",
+    "aislePosition" : 4,
+    "rackAisle" : 3,
+    "shelfrack" : 3,
+    "category" : "kjjkn",
+    "nutritionTable" : ""
+  },
+    "id3": {
+    "id" : "kjnnjjk",
+    "name" : "jnkjjn",
+    "expirationDate":"20-8-2020",
+    "brand": "kjnk",
+    "brandProducer" : "jjnkn",
+    "aislePosition" : 1,
+    "rackAisle" : 2,
+    "shelfrack" : 5,
+    "category" : "kjjkn",
+    "nutritionTable" : ""
+  },
+  "id4" : {
+        "id" : "kjnnjjk",
+    "name" : "jnkjjn",
+    "expirationDate":"20-8-2020",
+    "brand": "kjnk",
+    "brandProducer" : "jjnkn",
+    "aislePosition" : 4,
+    "rackAisle" : 3,
+    "shelfrack" : 6,
+    "category" : "kjjkn",
+    "nutritionTable" : ""
+  }
+}

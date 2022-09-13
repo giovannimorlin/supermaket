@@ -3,19 +3,15 @@ package supermarket.service
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.{ScalatestRouteTest, ScalatestUtils}
 import akka.http.scaladsl.server._
-import Directives._
-//import io.circe._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import spray.json._
-
 import supermarket.model._
 
 class ProductServiceTest extends AnyWordSpec       //scalatest
                          with Matchers             //scalatest
                          with ScalatestRouteTest   //akka.http.dsl
                          with ScalatestUtils       //akka.http.dsl
-                         with ProductJsonProtocol {//supermarket.model
+                         with ProductToWebProtocol {//supermarket.model
 
   //add a mock/stub and verify the falilure and the success of a call
   // use testcontainer per creare degli state case ad hoc

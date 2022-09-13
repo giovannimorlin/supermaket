@@ -1,12 +1,5 @@
 package supermarket.model
 
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import spray.json.DefaultJsonProtocol
-
-import doobie.{Read, Write}
-
-
-
 case class ProductId(id:Int)
 case class ProductName(name:String)
 case class ProductBrand(brand:String)
@@ -23,41 +16,6 @@ case class Product(id:              ProductId,
                    //category:      String,
                    //nutritionTable:Option[String]
 )
-
-//SprayJsonSupport  needed for unmarshalling in test
-trait ProductJsonProtocol extends SprayJsonSupport with DefaultJsonProtocol {
-
-  //vengono usati per creare productFormat
-  implicit val productIdFormat = jsonFormat1(ProductId)
-  implicit val productNameFormat = jsonFormat1(ProductName)
-  implicit val productBrandFormat = jsonFormat1(ProductBrand)
-  implicit val productBrandProducerFormat = jsonFormat1(ProductBrandProducer)
-
-  //difficoltà:
-  //non riesce a risolere la case class quando c'è il companion obj
-  //ho risolto inglobando gli impliciti def nel companion obj
-  implicit val productFormat = jsonFormat4(Product)
-
-  //necessari per doobie
-  implicit val productRead: Read[Product] =
-    Read[(Int, String, String, String)].map {
-      case (id, name, brand, brandproducer) =>
-        Product(ProductId(id),
-          ProductName(name),
-          ProductBrand(brand),
-          ProductBrandProducer(brandproducer))
-    }
-
-  implicit val productWrite: Write[Product] =
-    Write[(Int, String, String, String)].contramap {
-      case Product(ProductId(id),
-      ProductName(name),
-      ProductBrand(brand),
-      ProductBrandProducer(brandproducer)) => (id, name, brand, brandproducer)
-
-    }
-}
-
 
 /*
 case class BrandProducer(id: String,

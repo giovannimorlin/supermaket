@@ -14,11 +14,7 @@ import spray.json.enrichAny
 
 import supermarket.model._
 
-
-
-
-
-object ProductService extends ProductJsonProtocol {
+object ProductService extends ProductToDBProtocol with ProductToWebProtocol {
 
   val xa: Transactor[IO] = Transactor.fromDriverManager[IO](
     "org.postgresql.Driver",

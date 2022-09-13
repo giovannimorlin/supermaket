@@ -3,7 +3,8 @@ package supermarket
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
-import service.ProductService
+
+import supermarket.service.ProductService
 
 object Main extends App {
 
@@ -11,6 +12,4 @@ object Main extends App {
   implicit val ec     = system.executionContext
 
   Http().newServerAt("localhost",8081).bind(ProductService.ServerRoute)
-
-
 }

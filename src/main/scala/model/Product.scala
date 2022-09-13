@@ -25,7 +25,7 @@ case class Product(id:              ProductId,
 )
 
 //SprayJsonSupport  needed for unmarshalling in test
-trait ProductJsonProtocol extends SprayJsonSupport with DefaultJsonProtocol {
+trait ProductJsonProtocol extends DefaultJsonProtocol {
 
   //vengono usati per creare productFormat
   implicit val productIdFormat = jsonFormat1(ProductId)

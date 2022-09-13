@@ -1,7 +1,17 @@
 package supermarket.model
+import cats.effect.IO
+import doobie.util.transactor.Transactor
 import doobie.{Read, Write}
 
 trait ProductToDBProtocol {
+
+  val xa: Transactor[IO] = Transactor.fromDriverManager[IO](
+    "org.postgresql.Driver",
+    "jdbc:postgresql:myproducts",
+    "docker",
+    "docker"
+  )
+
   //necessari per doobie
   implicit val productRead: Read[Product] =
     Read[(Int, String, String, String)].map {

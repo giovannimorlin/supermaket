@@ -8,26 +8,18 @@ import cats.effect.IO
 import cats.effect.unsafe.implicits.global
 
 import doobie.implicits._
-import doobie.util.transactor.Transactor
 
 import spray.json.enrichAny
 
 import supermarket.model._
 
-object ProductService extends ProductToDBProtocol with ProductToWebProtocol {
-
-  val xa: Transactor[IO] = Transactor.fromDriverManager[IO](
-    "org.postgresql.Driver",
-    "jdbc:postgresql:myproducts",
-    "docker",
-    "docker"
-  )
+object ProductService extends ProductToDBProtocol
+                         with ProductToWebProtocol {
 
   def openPrintIO[A](opIO: IO[A]): IO[Unit] =
     opIO.map { x =>
       print(x)
     }
-
 
   val ServerRoute: Route =
     path("products") {

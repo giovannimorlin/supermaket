@@ -1,7 +1,10 @@
-package model
+package supermarket.model
+
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
+import spray.json.DefaultJsonProtocol
 
 import doobie.{Read, Write}
-import spray.json.DefaultJsonProtocol
+
 
 
 case class ProductId(id:Int)
@@ -21,7 +24,10 @@ case class Product(id:              ProductId,
                    //nutritionTable:Option[String]
 )
 
-trait ProductJsonProtocol extends DefaultJsonProtocol {
+//SprayJsonSupport  needed for unmarshalling in test
+trait ProductJsonProtocol extends SprayJsonSupport with DefaultJsonProtocol {
+
+  //vengono usati per creare productFormat
   implicit val productIdFormat = jsonFormat1(ProductId)
   implicit val productNameFormat = jsonFormat1(ProductName)
   implicit val productBrandFormat = jsonFormat1(ProductBrand)

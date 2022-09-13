@@ -1,5 +1,4 @@
-package service
-
+package supermarket.service
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
@@ -13,7 +12,9 @@ import doobie.util.transactor.Transactor
 
 import spray.json.enrichAny
 
-import model.{Product, ProductJsonProtocol}
+import supermarket.model._
+
+
 
 
 
@@ -68,6 +69,13 @@ object ProductService extends ProductJsonProtocol {
 
           //openPrintIO(IOqueryDB).unsafeRunSync()
           complete(r)
+        } ~
+        post {
+          entity(as[Product]) { (p:Product) =>
+
+            //try to write to db
+            complete("OK")
+          }
         }
     }
 }

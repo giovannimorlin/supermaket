@@ -3,15 +3,14 @@ package supermarket.service
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global
-
 import doobie.implicits._
-
+import doobie.util.transactor.Transactor
 import spray.json.enrichAny
-
+import supermarket.core.ProductRepository
 import supermarket.model._
+
 
 object ProductService extends ProductToDBProtocol
                          with ProductToWebProtocol {
@@ -26,15 +25,11 @@ object ProductService extends ProductToDBProtocol
       //localhost:8081/products?id=1
       parameter("id".as[Int]) { id =>
         get {
-          val IOqueryDB =
-            sql"select * from products where id=$id"
-              .query[Product]
-              .option
-              .transact(xa)
-
-          val r = IOqueryDB.unsafeRunSync() match {
-            case x: Option[Product] =>
-              HttpEntity(ContentTypes.`application/json`, x.toJson.prettyPrint)
+            val r = ProductRepository.getProductByID(id) match {
+            case Right(x) => x match {
+              case y:Option[Product] => HttpEntity(ContentTypes.`application/json`, y.toJson.prettyPrint)
+            }
+            case Left(_) => HttpEntity("Id non trovato")
           }
 
           //openPrintIO(IOqueryDB).unsafeRunSync()
@@ -49,10 +44,11 @@ object ProductService extends ProductToDBProtocol
               .to[List]
               .transact(xa)
 
-          val r = IOqueryDB.unsafeRunSync() match {
-            case x: List[Product] =>
-              HttpEntity(ContentTypes.`application/json`, x.toJson.prettyPrint)
-            //ritorna un list of json!!
+          val r = ProductRepository.getAllProducts() match {
+            case Right(x) => x match {
+              case y:List[Product] => HttpEntity(ContentTypes.`application/json`, y.toJson.prettyPrint)
+              }
+            case Left(x) => HttpEntity("Empty table products")
           }
 
           //openPrintIO(IOqueryDB).unsafeRunSync()

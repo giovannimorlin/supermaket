@@ -47,6 +47,7 @@ libraryDependencies ++= Seq(
   "org.http4s" %% "http4s-blaze-server" % http4sVersion,
   "org.http4s" %% "http4s-blaze-client" % http4sVersion,
 
+  "com.github.pureconfig" %% "pureconfig" % "0.17.1"
 )
 
 //scalacOptions ++= Seq ("-Ypartial-unification" )
